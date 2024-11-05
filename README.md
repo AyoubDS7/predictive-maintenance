@@ -1,39 +1,52 @@
-Predictive Maintenance for Industrial Machines
-This project aims to predict potential machine failures using historical telemetry, maintenance, and error data. The model identifies patterns and conditions that often lead to failures, enabling timely maintenance and reducing machine downtime.
+# Predictive Maintenance for Industrial Machines
 
-Project Overview
-Predictive maintenance is a proactive maintenance strategy that uses data to predict when a machine is likely to fail, allowing for preemptive repairs. This project leverages machine learning techniques to analyze machine sensor data, maintenance logs, and error reports. Our target variable is the time to failure (time_to_failure), helping to predict the time remaining before a machine fails based on input data.
+This project focuses on predictive maintenance, utilizing machine learning to forecast potential failures in industrial machines. By analyzing historical telemetry, maintenance, and error data, the model predicts the likelihood of future machine failures, enabling timely maintenance actions.
 
-Dataset
-The data consists of several CSV files, including:
+## Table of Contents
+- [Overview](#overview)
+- [Dataset](#dataset)
+- [Features](#features)
+- [Modeling Approach](#modeling-approach)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Results](#results)
+- [Contributing](#contributing)
+- [License](#license)
 
-Telemetry Data: Contains time-series data for machine parameters (voltage, rotation speed, pressure, and vibration).
-Maintenance Logs: Records details of historical maintenance events.
-Error Logs: Tracks error events detected on machines.
-Machine Information: Provides unique identifiers and attributes for each machine.
-These files were merged based on timestamps and machine IDs to create a cohesive dataset for analysis.
+---
 
-Key Features Used
-Time-Based Features: Year, month, day, hour, day of the week.
-Sensor Readings: Voltage, rotation speed, pressure, and vibration.
-Machine Attributes: Machine age, machine ID.
-Lagged Features: Previous values of sensor readings (e.g., lag_1, lag_2, lag_3) to capture recent trends.
-Project Workflow
-Data Preprocessing:
+## Overview
 
-Combined telemetry, error, and maintenance datasets.
-Created time-based features and lagged sensor readings to capture machine performance trends.
-Labeled failure cases based on historical records to train the model.
-Resampled data where necessary to manage irregular timestamps.
-Exploratory Data Analysis (EDA):
+Predictive maintenance is a data-driven approach aimed at predicting machine failures before they occur. This allows for proactive maintenance, reducing downtime and extending equipment lifespan. The target variable in this project is **time to failure** (`time_to_failure`), helping predict how much time is left before a machine needs maintenance.
 
-Analyzed feature distributions, correlations, and trends in sensor data.
-Investigated patterns associated with machine failures.
-Modeling:
+## Dataset
 
-Classification and Regression Models: Experimented with various algorithms, including Random Forest, Gradient Boosting, and LSTM (for time series).
-Evaluation Metrics: Evaluated models using accuracy, precision, recall, and F1 score. Set threshold probabilities to optimize precision and recall for failure detection.
-Deployment:
+The dataset includes multiple CSV files with detailed information on each machine:
+- **Telemetry Data**: Time-series data capturing machine parameters (e.g., voltage, rotation speed, pressure, and vibration).
+- **Maintenance Logs**: Record of historical maintenance activities.
+- **Error Logs**: Logs of error events that occurred in each machine.
+- **Machine Information**: Static information about each machine (e.g., machine ID, age).
 
-The final model was deployed to predict time to failure on new data, giving maintenance teams an advanced warning of potential failures.
-Threshold Tuning: Adjusted thresholds to maximize accuracy and ensure the timely detection of impending failures.
+## Features
+
+The primary features used for model training include:
+- **Temporal Features**: Extracted from date and time (year, month, day, hour, etc.).
+- **Lagged Features**: Historical sensor readings (`lag_1`, `lag_2`, `lag_3`) to capture recent trends.
+- **Machine Parameters**: Voltage, rotation speed, pressure, vibration, and age of the machine.
+- **Error Indicators**: Captures instances of specific error events.
+
+## Modeling Approach
+
+1. **Data Preprocessing**: Cleaning and merging multiple data sources, creating lagged features, and engineering additional time-based features.
+2. **Feature Engineering**: Added lagged features to capture time-based patterns.
+3. **Model Training**: Used **XGBoost** for training on engineered features. Target variable was **time to failure** (`time_to_failure`).
+4. **Evaluation**: Evaluated the model using metrics such as Mean Squared Error (MSE) and Mean Absolute Error (MAE) for regression tasks.
+
+## Installation
+
+Clone the repository and install the required packages:
+```bash
+git clone https://github.com/yourusername/predictive-maintenance.git
+cd predictive-maintenance
+pip install -r requirements.txt
+
